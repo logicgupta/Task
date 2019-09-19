@@ -27,7 +27,7 @@ public class BGService extends Service {
     public void onCreate() {
         super.onCreate();
     }
-    public void getData(String s){
+    public void sendData(String s){
         EventBus.getDefault().post(new EventMessage(s+"Hello"));
     }
 }

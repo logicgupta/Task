@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     BGService service=new BGService();
                     editView.getText().toString();
-                    service.getData( editView.getText().toString());
+                    service.sendData( editView.getText().toString());
                 }
 
             }
