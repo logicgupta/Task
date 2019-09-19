@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class MainActivity extends AppCompatActivity {
     Button start,stop,send;
-    EditText textView;
+    EditText editView;
 
 
     @Override
@@ -57,8 +57,15 @@ public class MainActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BGService service=new BGService();
-                service.getData("hii");
+                if (!isServiceRunning(BGService.class)){
+                    Toast.makeText(MainActivity.this, "Service isn't started yet", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    BGService service=new BGService();
+                    editView.getText().toString();
+                    service.getData( editView.getText().toString());
+                }
+
             }
         });
 
@@ -67,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         start=findViewById(R.id.startButton);
         stop=findViewById(R.id.stopButton);
         send=findViewById(R.id.sendButton);
-        textView=findViewById(R.id.textView);
+        editView =findViewById(R.id.textView);
     }
 
     private boolean isServiceRunning(Class<?> serviceClass) {
@@ -82,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void messageEventFromService(EventMessage eventMessage){
-        textView.setText(""+eventMessage.getNotification());
+        editView.setText(""+eventMessage.getNotification());
     }
 
     @Override
